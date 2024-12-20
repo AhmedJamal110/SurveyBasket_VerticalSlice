@@ -1,3 +1,4 @@
+using SurveyBasket_VerticalSlice.Middelwares;
 
 namespace SurveyBasket_VerticalSlice
 {
@@ -16,6 +17,7 @@ namespace SurveyBasket_VerticalSlice
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
+            MapperHalper.Mapper = app.Services.GetService<AutoMapper.IMapper>();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -23,7 +25,8 @@ namespace SurveyBasket_VerticalSlice
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
+            app.UseMiddleware<ExceptionMiddelware>();
+            app.UseMiddleware<TransactionMiddleware>();
             app.UseHttpsRedirection();
 
             app.UseAuthorization();

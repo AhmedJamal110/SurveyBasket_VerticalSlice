@@ -1,8 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using SurveyBasket_VerticalSlice.Domain.Entities;
-
-namespace SurveyBasket_VerticalSlice.Persistence.Configration
+﻿namespace SurveyBasket_VerticalSlice.Persistence.Configration
 {
     public class PollConfigration : IEntityTypeConfiguration<Poll>
     {

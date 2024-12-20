@@ -1,10 +1,5 @@
-﻿using FluentValidation;
-using FluentValidation.AspNetCore;
-using Mapster;
-using MapsterMapper;
-using Microsoft.EntityFrameworkCore;
-using SurveyBasket_VerticalSlice.Persistence;
-using System.Reflection;
+﻿using SurveyBasket_VerticalSlice.Comman;
+using SurveyBasket_VerticalSlice.Repository;
 
 namespace SurveyBasket_VerticalSlice
 {
@@ -33,7 +28,10 @@ namespace SurveyBasket_VerticalSlice
             services.AddMediatRConfiguration();
             services.AddMapsterConfigration();
             services.AddFluenentValidtionConfigration();
-
+            services.AddAutoMapperConfigration();
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<RequestParameters>();
+            services.AddScoped<ControllerParamters>();
             return services;
         }
 
@@ -46,13 +44,18 @@ namespace SurveyBasket_VerticalSlice
         {
             var config = TypeAdapterConfig.GlobalSettings;
             config.Scan(Assembly.GetExecutingAssembly());
-            services.AddSingleton<IMapper>(new Mapper(config));
+            services.AddSingleton<MapsterMapper.IMapper>(new MapsterMapper.Mapper(config));
             return services;
         }
         private static IServiceCollection AddFluenentValidtionConfigration(this IServiceCollection services)
         {
             services.AddFluentValidationAutoValidation()
                 .AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+            return services;
+        }
+        private static IServiceCollection AddAutoMapperConfigration(this IServiceCollection services)
+        {
+            services.AddAutoMapper(typeof(MappingProfile));
             return services;
         }
     }

@@ -1,10 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using SurveyBasket_VerticalSlice.Domain.Entities;
-using SurveyBasket_VerticalSlice.Persistence;
-using System.Linq.Expressions;
-
-namespace SurveyBasket_VerticalSlice.Repository
+﻿namespace SurveyBasket_VerticalSlice.Repository
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     {

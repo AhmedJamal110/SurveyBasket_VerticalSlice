@@ -10,6 +10,9 @@ namespace SurveyBasket.Abstractions
             {
                 throw new InvalidOperationException("");
             }
+
+            IsSuccess = isSuccess;
+            Error = error;
         }
         public bool IsSuccess { get; }
         public bool IsFailure => !IsSuccess;
@@ -32,16 +35,14 @@ namespace SurveyBasket.Abstractions
 
     public class Result<TValue> : Result
     {
-        private readonly TValue _value;
-        public Result(TValue value ,  bool isSuccess, Error error) : base(isSuccess, error)
+        private readonly TValue? _value;
+        public Result(TValue value, bool isSucess, Error error) : base(isSucess, error)
         {
             _value = value;
         }
 
-        [NotNull]
-        public TValue Value => IsSuccess
-                                        ? _value!
-                                        : throw new InvalidOperationException("Failure Result Cant have Value");
+        public TValue Value
+            => IsSuccess ? _value! : throw new InvalidOperationException("Failure Result Cant have Value");
 
         public static implicit operator Result<TValue>(TValue value)
                         => Create(value);
