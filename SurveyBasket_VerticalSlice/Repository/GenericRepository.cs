@@ -16,7 +16,7 @@
 
         public IQueryable<T> GetAllAsync()
         {
-            return _context.Set<T>().Where(x => x.IsDeleted == false);
+            return _context.Set<T>().Where(x => x.IsDeleted == false).AsNoTracking();
         }
 
         public async Task<T?> GetByIdAsync(int id)
@@ -43,9 +43,10 @@
            .ExecuteUpdateAsync(x => x.SetProperty(p => p.IsDeleted, true));
         }
 
-        public void Update(T entity)
+        public Task Update(T entity)
         {
             _context.Set<T>().Update(entity);
+            return Task.CompletedTask;
         }
 
         public void UpdateInclude(T entity, params string[] updatedProp)

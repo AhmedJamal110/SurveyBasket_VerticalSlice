@@ -9,7 +9,7 @@ namespace SurveyBasket_VerticalSlice.Repository
         Task<T?> GetByIdAsync(int id);
         Task<bool> IsEntityExsit(Expression<Func<T, bool>> expression);
         Task<T> AddAsync(T entity);
-        void Update(T entity);
+        Task Update(T entity);
         void UpdateInclude(T entity, params string[] updatedProp);
         Task HardDelte(int id);
         Task SoftDelte(int id);

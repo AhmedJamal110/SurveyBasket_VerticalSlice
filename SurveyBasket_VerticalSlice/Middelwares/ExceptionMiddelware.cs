@@ -7,13 +7,13 @@ namespace SurveyBasket_VerticalSlice.Middelwares
     {
         private readonly RequestDelegate _next;
         private readonly ILogger<ExceptionMiddelware> _logger;
-        private readonly IHostEnvironment _env;
+        //private readonly IHostEnvironment _env;
 
-        public ExceptionMiddelware(RequestDelegate next , ILogger<ExceptionMiddelware> logger , IHostEnvironment env)
+        public ExceptionMiddelware(RequestDelegate next , ILogger<ExceptionMiddelware> logger ) //IHostEnvironment env)
         {
             _next = next;
             _logger = logger;
-            _env = env;
+           // _env = env;
         }
 
         public async Task InvokeAsync(HttpContext context)

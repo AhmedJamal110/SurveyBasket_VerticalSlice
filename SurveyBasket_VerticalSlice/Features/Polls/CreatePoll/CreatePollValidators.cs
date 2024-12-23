@@ -19,8 +19,14 @@ namespace SurveyBasket_VerticalSlice.Features.Polls.CreatePoll
             RuleFor(x => x.EndAt)
                  .NotEmpty();
 
+            RuleFor(x => x)
+                    .Must(HasValidDate);
 
+        }
 
+        private bool HasValidDate(CreatePollRequest request)
+        {
+            return request.EndAt >= request.StratsAT;
         }
     }
 }
