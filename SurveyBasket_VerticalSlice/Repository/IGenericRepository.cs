@@ -1,7 +1,4 @@
-﻿using SurveyBasket_VerticalSlice.Domain.Entities;
-using System.Linq.Expressions;
-
-namespace SurveyBasket_VerticalSlice.Repository
+﻿namespace SurveyBasket_VerticalSlice.Repository
 {
     public interface IGenericRepository<T> where T : BaseEntity
     {

@@ -28,7 +28,7 @@ namespace SurveyBasket_VerticalSlice
             app.UseMiddleware<ExceptionMiddelware>();
             app.UseMiddleware<TransactionMiddleware>();
             app.UseHttpsRedirection();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
 

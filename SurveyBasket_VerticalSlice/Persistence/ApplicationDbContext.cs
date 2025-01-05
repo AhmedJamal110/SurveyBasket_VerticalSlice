@@ -1,10 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SurveyBasket_VerticalSlice.Domain.Entities;
-using System.Reflection;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace SurveyBasket_VerticalSlice.Persistence
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> option) : base(option)
         {

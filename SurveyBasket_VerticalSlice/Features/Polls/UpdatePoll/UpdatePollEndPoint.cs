@@ -8,7 +8,7 @@
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdatePoll( int id , [FromBody]UpdatePollRequest request)
+        public async Task<ActionResult> Edit( int id , [FromBody]UpdatePollRequest request)
          {
             var result = await _Sender.Send(new UpdatePollCommand
                         (id, request.Title, request.Summary));

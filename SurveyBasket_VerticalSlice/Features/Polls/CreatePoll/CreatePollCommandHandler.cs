@@ -1,8 +1,4 @@
-﻿using SurveyBasket_VerticalSlice.Comman;
-using SurveyBasket_VerticalSlice.Errors;
-using SurveyBasket_VerticalSlice.Repository;
-
-namespace SurveyBasket_VerticalSlice.Features.Polls.CreatePoll
+﻿namespace SurveyBasket_VerticalSlice.Features.Polls.CreatePoll
 {
     public class CreatePollCommandHandler : BaseRequestHandler<CreatePollCommand, Result<CreatePollResponse>>
     {

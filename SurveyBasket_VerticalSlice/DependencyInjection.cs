@@ -1,5 +1,10 @@
-﻿using SurveyBasket_VerticalSlice.Comman;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
+using SurveyBasket_VerticalSlice.Comman;
+using SurveyBasket_VerticalSlice.Domain.Identity;
 using SurveyBasket_VerticalSlice.Repository;
+using System.Text;
 
 namespace SurveyBasket_VerticalSlice
 {
@@ -29,6 +34,7 @@ namespace SurveyBasket_VerticalSlice
             services.AddMapsterConfigration();
             services.AddFluenentValidtionConfigration();
             services.AddAutoMapperConfigration();
+            services.AddIdentityConfigration(configuration);
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<RequestParameters>();
             services.AddScoped<ControllerParamters>();
@@ -56,6 +62,46 @@ namespace SurveyBasket_VerticalSlice
         private static IServiceCollection AddAutoMapperConfigration(this IServiceCollection services)
         {
             services.AddAutoMapper(typeof(MappingProfile));
+            return services;
+        }
+ 
+        private static IServiceCollection AddIdentityConfigration(this IServiceCollection services , IConfiguration configuration)
+        {
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                        .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            // binding 
+           services.Configure<JwtOptions>(configuration.GetSection(JwtOptions.SectionName));
+
+            var jwtSettings = configuration.GetSection(JwtOptions.SectionName).Get<JwtOptions>();
+
+            services.AddAuthentication(opt =>
+            {
+                opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer(opt =>
+                {
+                    opt.SaveToken = true;
+                    opt.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        ValidateAudience = true,
+                        ValidateIssuer = true,
+                        ValidateLifetime = true,
+                        ValidIssuer = jwtSettings?.ValidIssuer ,
+                        ValidAudience = jwtSettings?.ValidAudiance,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings?.Key!))
+                    };
+                });
+
+            services.Configure<IdentityOptions>(opt =>
+            {
+                opt.User.RequireUniqueEmail = true;
+                opt.Password.RequiredLength = 8;
+                //opt.SignIn.RequireConfirmedAccount = true;
+            });  
+
             return services;
         }
     }

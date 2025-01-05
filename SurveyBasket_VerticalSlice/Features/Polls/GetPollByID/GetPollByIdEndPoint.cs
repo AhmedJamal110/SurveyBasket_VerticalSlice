@@ -6,7 +6,7 @@
         {
         }
         [HttpGet("poll")]
-        public async Task<ActionResult> GetPollByID([FromQuery]GetPollByIDRequest request)
+        public async Task<ActionResult> Get([FromQuery]GetPollByIDRequest request)
         {
            var poll = await _Sender.Send(new GetPollByIdQuery(request.id));
 

@@ -1,9 +1,4 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using SurveyBasket_VerticalSlice.Comman;
-using SurveyBasket_VerticalSlice.Errors;
-using SurveyBasket_VerticalSlice.Repository;
-
-namespace SurveyBasket_VerticalSlice.Features.Polls.GetAllPolls
+﻿namespace SurveyBasket_VerticalSlice.Features.Polls.GetAllPolls
 {
     public class GetAllPollsQueryHanlder : BaseRequestHandler<GetAllPollsQuery , Result<IEnumerable<GetAllPollsResponse>>>
     {

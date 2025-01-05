@@ -13,7 +13,7 @@ namespace SurveyBasket_VerticalSlice.Features.Polls.CreatePoll
 
 
         [HttpPost("createPoll")]
-        public async Task<ActionResult> CreatePoll([FromBody] CreatePollRequest request)
+        public async Task<ActionResult> Post([FromBody] CreatePollRequest request)
         {
                
             var result = await _Sender.Send(new CreatePollCommand

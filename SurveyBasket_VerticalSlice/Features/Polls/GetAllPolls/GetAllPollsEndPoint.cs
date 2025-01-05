@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using SurveyBasket_VerticalSlice.Abstractions;
-using SurveyBasket_VerticalSlice.Comman;
-
-namespace SurveyBasket_VerticalSlice.Features.Polls.GetAllPolls
+﻿namespace SurveyBasket_VerticalSlice.Features.Polls.GetAllPolls
 {
     public class GetAllPollsEndPoint : BaseController
     {
@@ -11,7 +7,7 @@ namespace SurveyBasket_VerticalSlice.Features.Polls.GetAllPolls
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetAllPolls()
+        public async Task<ActionResult> GetAll()
         {
             var result = await _Sender.Send(new GetAllPollsQuery());
 
