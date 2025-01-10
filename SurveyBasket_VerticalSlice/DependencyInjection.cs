@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.IdentityModel.Tokens;
-using SurveyBasket_VerticalSlice.Comman;
 using SurveyBasket_VerticalSlice.Domain.Identity;
-using SurveyBasket_VerticalSlice.Repository;
+using SurveyBasket_VerticalSlice.Features.Authentication.Shared;
 using System.Text;
 
 namespace SurveyBasket_VerticalSlice
@@ -68,10 +68,12 @@ namespace SurveyBasket_VerticalSlice
         private static IServiceCollection AddIdentityConfigration(this IServiceCollection services , IConfiguration configuration)
         {
             services.AddIdentity<ApplicationUser, IdentityRole>()
-                        .AddEntityFrameworkStores<ApplicationDbContext>();
-
+                        .AddEntityFrameworkStores<ApplicationDbContext>()
+                        .AddDefaultTokenProviders();
             // binding 
            services.Configure<JwtOptions>(configuration.GetSection(JwtOptions.SectionName));
+            services.Configure<MailSetting>(configuration.GetSection(nameof(MailSetting)));
+            services.AddScoped<IEmailSender, EmailService>();
 
             var jwtSettings = configuration.GetSection(JwtOptions.SectionName).Get<JwtOptions>();
 
@@ -95,11 +97,13 @@ namespace SurveyBasket_VerticalSlice
                     };
                 });
 
+            services.AddHttpContextAccessor();
+
             services.Configure<IdentityOptions>(opt =>
             {
                 opt.User.RequireUniqueEmail = true;
                 opt.Password.RequiredLength = 8;
-                //opt.SignIn.RequireConfirmedAccount = true;
+                opt.SignIn.RequireConfirmedAccount = true;
             });  
 
             return services;

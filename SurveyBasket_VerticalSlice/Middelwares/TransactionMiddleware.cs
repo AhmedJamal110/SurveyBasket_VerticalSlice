@@ -30,7 +30,7 @@
                 catch (Exception ex)
                 {
                     await transaction.RollbackAsync();
-                    _logger.LogError("Error happend while Save changes", ex.Message);
+                    _logger.LogError("Error happend while Save changes  : {Message}", ex.Message);
                 }
             }
             else

@@ -19,11 +19,11 @@ namespace SurveyBasket_VerticalSlice.Features.Authentication.RefreshTokenCQ
         {
            var userId = await  _sender.Send(new ValidateTokenCommand(request.Token));
                 if (string.IsNullOrEmpty(userId))
-                    return Result.Failure<UserResponse>(UserError.UserNotFound);
+                    return Result.Failure<UserResponse>(UserError.TokenError);
 
             var user = await _userManager.FindByIdAsync(userId);
                 if (user is null)
-                    return Result.Failure<UserResponse>(UserError.UserNotFound);
+                    return Result.Failure<UserResponse>(UserError.IvalidCredentials);
 
             var refrshToken = user.refreshTokens.SingleOrDefault(token => token.Token == request.RefrshToken && token.IsActive);
                 if (refrshToken is null)
