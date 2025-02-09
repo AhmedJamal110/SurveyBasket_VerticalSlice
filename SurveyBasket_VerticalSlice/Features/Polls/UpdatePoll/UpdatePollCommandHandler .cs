@@ -21,7 +21,7 @@ namespace SurveyBasket_VerticalSlice.Features.Polls.UpdatePoll
                 if (pollResponse is null)
                         return Result.Failure<UpdatePollResponse>(PollError.PollNotFound);
 
-            bool isExsit = await _sender.Send(new IsEntityExistQuery(poll => poll.Id != request.Id && poll.Title == request.Title));
+            bool isExsit = await _sender.Send(new IsPollExistQuery(poll => poll.Id != request.Id && poll.Title == request.Title));
             //bool isExsit = await _pollReposatory.IsEntityExsit(poll => poll.Id != request.Id && poll.Title == request.Title);
                 if (isExsit)     
                         return Result.Failure<UpdatePollResponse>(PollError.PollDeplucated);

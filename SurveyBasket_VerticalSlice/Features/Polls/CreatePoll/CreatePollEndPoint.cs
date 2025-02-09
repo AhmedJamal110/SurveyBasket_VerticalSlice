@@ -1,21 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using SurveyBasket_VerticalSlice.Abstractions;
-using SurveyBasket_VerticalSlice.Comman;
-
-namespace SurveyBasket_VerticalSlice.Features.Polls.CreatePoll
+﻿namespace SurveyBasket_VerticalSlice.Features.Polls.CreatePoll
 {
-    public class CreatePollEndPoint : BaseController
+    [Route("api/polls")]
+    public class CreatePollEndPoint(ControllerParamters paramters) : BaseController(paramters)
     {
-        public CreatePollEndPoint(ControllerParamters paramters) : base(paramters)
-        {
-            
-        }
-
-
-        [HttpPost("createPoll")]
+        [HttpPost]
         public async Task<ActionResult> Post([FromBody] CreatePollRequest request)
         {
-               
+
             var result = await _Sender.Send(new CreatePollCommand
                (
                    request.Title,

@@ -1,11 +1,9 @@
 ﻿namespace SurveyBasket_VerticalSlice.Features.Polls.GetPollByID
 {
-    public class GetPollByIdEndPoint : BaseController
+    [Route("api/polls")]
+    public class GetPollByIdEndPoint(ControllerParamters controllerParamters) : BaseController(controllerParamters)
     {
-        public GetPollByIdEndPoint(ControllerParamters controllerParamters) : base(controllerParamters)
-        {
-        }
-        [HttpGet("poll")]
+        [HttpGet]
         public async Task<ActionResult> Get([FromQuery]GetPollByIDRequest request)
         {
            var poll = await _Sender.Send(new GetPollByIdQuery(request.id));

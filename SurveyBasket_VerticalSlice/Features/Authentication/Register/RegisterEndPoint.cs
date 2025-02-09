@@ -1,6 +1,7 @@
 ﻿
 namespace SurveyBasket_VerticalSlice.Features.Authentication.Register
 {
+    [Route("api/Register")]
     public class RegisterEndPoint : BaseController
     {
         public RegisterEndPoint(ControllerParamters controllerParamters) : base(controllerParamters)
