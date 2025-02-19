@@ -1,6 +1,7 @@
 ﻿using SurveyBasket_VerticalSlice.Domain.Identity;
 using SurveyBasket_VerticalSlice.Features.Authentication.Register;
 using SurveyBasket_VerticalSlice.Features.Questions.CreateQuestion;
+using SurveyBasket_VerticalSlice.Features.Questions.GetAvaliableQuestions;
 
 namespace SurveyBasket_VerticalSlice.Helper
 {
@@ -20,6 +21,11 @@ namespace SurveyBasket_VerticalSlice.Helper
             config.NewConfig<CreateQuestionCommand, Question>()
                     .Map(dis => dis.Content, src => src.Request.Content)
                    .Map(dis => dis.Answers, src => src.Request.Answers.Select(answer => new Answer { Content = answer }));
+
+
+
+            config.NewConfig<Question, GetAvaliableQuestionsResponse>()
+                     .Map(dis => dis.Answers, src => src.Answers.Where(ans => ans.IsActive));
         }
     }
 }

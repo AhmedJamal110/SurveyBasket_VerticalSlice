@@ -14,9 +14,32 @@
             return entity;
         }
 
+        public async Task<TDestination?> FirstAsync<TDestination>(Expression<Func<T, bool>> predicate)
+        {
+            IQueryable<T> query = _context.Set<T>().AsNoTracking();
+                
+            return await  query.Where(predicate).ProjectToType<TDestination>().FirstOrDefaultAsync();
+        }
+
+        public Task<T?> FirstAsync(Expression<Func<T, bool>> predicate)
+        {
+            IQueryable<T> query = _context.Set<T>().AsNoTracking();
+
+            return query.Where(predicate).FirstOrDefaultAsync();
+
+        }
+
         public IQueryable<T> GetAllAsync()
         {
             return _context.Set<T>().Where(x => x.IsDeleted == false).AsNoTracking();
+        }
+
+        public async Task<T?> FirstWithIncludeAsync(Expression<Func<T, bool>> predicate , Expression<Func<T, object>> IncludedProp)
+        {
+            IQueryable<T> query = _context.Set<T>().AsNoTracking();
+
+            return await query.Include(IncludedProp).Where(predicate).FirstOrDefaultAsync();
+
         }
 
         public async Task<T?> GetByIdAsync(int id)

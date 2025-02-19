@@ -1,3 +1,4 @@
+using Serilog;
 using SurveyBasket_VerticalSlice.Middelwares;
 
 namespace SurveyBasket_VerticalSlice
@@ -16,6 +17,10 @@ namespace SurveyBasket_VerticalSlice
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+
+            builder.Host.UseSerilog((context, configuration)
+                => configuration.ReadFrom.Configuration(context.Configuration));
+            
             var app = builder.Build();
             MapperHalper.Mapper = app.Services.GetService<AutoMapper.IMapper>();
 
@@ -27,6 +32,8 @@ namespace SurveyBasket_VerticalSlice
             }
             app.UseMiddleware<ExceptionMiddelware>();
             app.UseMiddleware<TransactionMiddleware>();
+
+            app.UseSerilogRequestLogging();
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();

@@ -23,8 +23,6 @@
                 {
                    await  _next(httpContext);
                     var x =  await context.SaveChangesAsync();
-                    var w = context.Polls.Where(p => p.Id == 11).Select(p => p.Id).FirstOrDefault();
-                    await Console.Out.WriteLineAsync(w + " ======= ID ");
                     await transaction.CommitAsync();
                 }
                 catch (Exception ex)

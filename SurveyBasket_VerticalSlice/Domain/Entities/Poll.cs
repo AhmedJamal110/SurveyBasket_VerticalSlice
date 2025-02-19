@@ -8,6 +8,9 @@
         public bool IsPublished { get; set; }
         public DateOnly StratsAT { get; set; }
         public DateOnly EndAt { get; set; }
-        public ICollection<Answer> Questions { get; set; } = [];
+        public ICollection<Question> Questions { get; set; } = [];
+
+        public ICollection<Vote> votes { get; set; } = [];
+
     }
 }

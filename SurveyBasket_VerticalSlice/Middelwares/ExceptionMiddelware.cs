@@ -21,10 +21,11 @@ namespace SurveyBasket_VerticalSlice.Middelwares
             try
             {
                 await _next(context);
+                
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "somthing went Error", ex.Message);
+                _logger.LogError(ex, "somthing went Error : {Message}", ex.Message);
 
                 var problemDetails = new ProblemDetails
                 {

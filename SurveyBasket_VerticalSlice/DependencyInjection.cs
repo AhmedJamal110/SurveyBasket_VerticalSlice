@@ -5,7 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using SurveyBasket_VerticalSlice.Domain.Identity;
 using SurveyBasket_VerticalSlice.Features.Authentication.Shared;
 using System.Text;
-
+using Serilog; 
 namespace SurveyBasket_VerticalSlice
 {
     public static class DependencyInjection
@@ -64,7 +64,6 @@ namespace SurveyBasket_VerticalSlice
             services.AddAutoMapper(typeof(MappingProfile));
             return services;
         }
- 
         private static IServiceCollection AddIdentityConfigration(this IServiceCollection services , IConfiguration configuration)
         {
             services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -108,5 +107,8 @@ namespace SurveyBasket_VerticalSlice
 
             return services;
         }
+        
+        
+        
     }
 }
