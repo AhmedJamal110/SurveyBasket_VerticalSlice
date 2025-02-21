@@ -1,4 +1,5 @@
-﻿namespace SurveyBasket_VerticalSlice.Repository
+﻿
+namespace SurveyBasket_VerticalSlice.Repository
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     {
@@ -33,6 +34,7 @@
         {
             return _context.Set<T>().Where(x => x.IsDeleted == false).AsNoTracking();
         }
+ 
 
         public async Task<T?> FirstWithIncludeAsync(Expression<Func<T, bool>> predicate , Expression<Func<T, object>> IncludedProp)
         {
@@ -96,6 +98,8 @@
             }
 
         }
+
+      
     }
 }
 

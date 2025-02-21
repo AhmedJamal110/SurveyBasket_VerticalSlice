@@ -6,8 +6,7 @@ public class PaginatedList<T>
     {
         Data = data;
         PageNmber = pageNumber;
-        TotalPages = (int)Math.Ceiling(count / (double)pageSize)
-        
+        TotalPages = (int)Math.Ceiling(count / (double)pageSize);
     }
 
     public List<T> Data { get; private set; }
@@ -15,4 +14,16 @@ public class PaginatedList<T>
     public int TotalPages { get; set; }
     public bool HasPreviousPage => PageNmber > 1;
     public bool HasNextPage => PageNmber  < TotalPages;
+
+    public static async Task<PaginatedList<T>> CreatetAsync(IQueryable<T> source, int pageNumber, int pageSize)
+    {
+        int count = await source.CountAsync();
+        var data = await source.Skip((pageNumber - 1) * pageSize)
+                                           .Take(pageSize)
+                                           .ToListAsync();
+
+
+        return new PaginatedList<T>(data , pageNumber , count , pageSize);
+    }
+
 }

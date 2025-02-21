@@ -8,9 +8,9 @@ public class GetAllQuestionsEndpoint : BaseController
     }
 
     [HttpGet]
-    public async Task<ActionResult> GetAll([FromQuery] int pollId)
+    public async Task<ActionResult> GetAll([FromQuery] int pollId , [FromQuery] RequestFilter filter)
     {
-        var result = await _Sender.Send(new GetAllQuestionsQuery(pollId));
+        var result = await _Sender.Send(new GetAllQuestionsQuery(pollId , filter));
     
         return result.IsSuccess ? Ok(result.Value) : result.ToProblem(StatusCodes.Status404NotFound);
     }
